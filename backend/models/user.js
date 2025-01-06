@@ -38,7 +38,16 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid phone number!`
         }
     },
-    password: { type: String, required: true },
+    password: { 
+        type: String, 
+        required: true, 
+        validate: {
+            validator: function (v) {
+                return v && v.length >= 6; // Ensures password is at least 6 characters long
+            },
+            message: props => `Password must be at least 6 characters long!`
+        }
+    },
     role: {
         type: String,
         enum: ['Doctor', 'Clinical Staff', 'Admin'],
