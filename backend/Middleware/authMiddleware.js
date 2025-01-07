@@ -1,9 +1,3 @@
-async function hashPassword(password) {
-    const salt = await bcrypt.genSalt(10);
-    return await bcrypt.hash(password, salt);
-}
-
-// Middleware for role-based access
 const authMiddleware = (roles) => (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) return res.status(403).json({ message: 'Access denied' });
@@ -19,3 +13,4 @@ const authMiddleware = (roles) => (req, res, next) => {
         res.status(401).json({ message: 'Invalid or expired token' });
     }
 };
+
